@@ -7,9 +7,11 @@ function ContentSide() {
     const user = JSON.parse(localStorage.getItem("user"));
     const [utilisateurs,setUtilisateur] = useState([]);
     const {id_selection} = useParams();
-    const toggleActive = () => {
-        setIsActive(!isActive);
+
+    const ReloadPage = (url) => {
+        window.location.href = url;
     };
+
     useEffect(() => {
         request("get", `/api/demo/users/${user.id}`)
             .then(response => {
@@ -74,26 +76,20 @@ function ContentSide() {
 
                 <div class="content-messages">
                     <ul class="content-messages-list">
+                        {utilisateurs.map((item) => (
                         <li>
-                            {utilisateurs.map((item) => (
-
-                                <Link to={`/message/${item.id}`} data-conversation="#conversation-1"  onClick={toggleActive}>
+                                <Link to={`/message/${item.id}`}  data-conversation="#conversation-1" onClick={() => ReloadPage(`/message/${item.id}`)}>
                                     <img class="content-message-image" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="" />
                                     <span class="content-message-info" >
-                                <span class="content-message-name">{item.email}</span>
-                            </span>
+                                    <span class="content-message-name">{item.email}</span>
+                                    </span>
                                 </Link>
-                            ))}
-
                         </li>
+                        ))}
                     </ul>
                 </div>
             </div>
 
-            <div class="conversation conversation-default">
-                <i class="ri-chat-3-line"></i>
-                <p>Bonjour, Lancer une conversation</p>
-            </div>
 
             <div class="conversation active" id="conversation-1">
                 <div class="conversation-top">
@@ -102,7 +98,6 @@ function ContentSide() {
                         <img class="conversation-user-image" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="" />
                         <div>
                             <div class="conversation-user-name">Someone</div>
-                            <div class="conversation-user-status online">online</div>
                         </div>
                     </div>
                     <div class="conversation-buttons">
@@ -133,7 +128,7 @@ function ContentSide() {
                         {message2.map(message2 => (
                             <li class="conversation-item">
                                 <div class="conversation-item-side">
-                                    <img class="conversation-item-image" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8cGVvcGxlfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" alt="" />
+                                    <img class="conversation-item-image" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="" />
                                 </div>
                                 <div class="conversation-item-content">
                                     <div class="conversation-item-wrapper">
