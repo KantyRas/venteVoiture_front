@@ -25,8 +25,7 @@ function Favori(){
                             <img src={voiture} className="card-img-top" alt="Car" />
                         </div>
                         <div className="card-body">
-                            <h5 className="card-title">{favori.modele}</h5>
-                            <p className="card-text">{favori.matricule}</p>
+                            <h5 className="card-title">Numero annonce :{favori.idannonce}</h5>
                         </div>
                         <div className="mb-3 d-flex justify-content-around align-items-center">
                             <h3>{favori.prix}</h3>

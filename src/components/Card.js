@@ -99,11 +99,10 @@ function Card() {
                             <img src={voiture} className="card-img-top" alt="Car" />
                         </div>
                         <div className="card-body">
-                            <h5 className="card-title">{annonce.modele}</h5>
-                            <p className="card-text">{annonce.matricule}</p>
+                            <h5 className="card-title"> {annonce.marque.marque} {annonce.modele}</h5>
                         </div>
                         <div className="mb-3 d-flex justify-content-around align-items-center">
-                            <h3>{annonce.prix}</h3>
+                            <h5>{annonce.prix} Mga</h5>
                             <button className={`favorite-btn ${isAlreadyFavorite(annonce.idannonce) ? 'active' : ''}`} onClick={() => handleToggleFavorite(annonce.idannonce)}>
                                 <span className="heart-icon"></span>
                             </button>

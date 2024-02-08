@@ -33,11 +33,11 @@ function Historique() {
                             <img src={voiture} className="card-img-top" alt="Car" />
                         </div>
                         <div className="card-body">
-                            <h5 className="card-title">{historique.modele}</h5>
+                            <h5 className="card-title">{historique.marque.marque} {historique.modele}</h5>
                             <p className="card-text">{historique.matricule}</p>
                         </div>
                         <div className="mb-3 d-flex justify-content-around align-items-center">
-                            <h3>{historique.prix}</h3>
+                            <h5>{historique.prix} MGA</h5>
                             <Link to={`/details/${historique.idannonce}`} className="btn btn-primary">Détails</Link>
                         </div>
                     </div>

@@ -1,5 +1,4 @@
 import "../assets/css/details.css";
-import voiture from "../assets/images/voiture.jpg";
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from "react-router-dom";
 import { request } from "../helper/axios_helper";
@@ -56,56 +55,48 @@ function Detailproduit() {
     return (
         <div className="test-wrapper">
             <div className="test">
-                <div className="product-imgs">
-                    <div className="img-display">
-                        <div className="img-showcase">
-                            <img src={voiture} alt="sary" />
-                            <img src={voiture} alt="sary" />
-                            <img src={voiture} alt="sary" />
-                            <img src={voiture} alt="sary" />
-                        </div>
-                    </div>
-                    <div className="img-select">
-                        <div className="img-item">
-                            <Link to="/" data-id="1">
-                                <img src={voiture} alt="sary" />
-                            </Link>
-                        </div>
-                        <div className="img-item">
-                            <Link to="/" data-id="2">
-                                <img src={voiture} alt="sary" />
-                            </Link>
-                        </div>
-                        <div className="img-item">
-                            <Link to="/" data-id="3">
-                                <img src={voiture} alt="sary" />
-                            </Link>
-                        </div>
-                        <div className="img-item">
-                            <Link to="/" data-id="4">
-                                <img src={voiture} alt="sary" />
-                            </Link>
-                        </div>
+            <div className="product-imgs">
+                <div className="img-display">
+                    <div className="img-showcase">
+                        {details.map(sary => (
+                            sary.imagelinks.map((link, index) => (
+                                <img src={link} alt="sary" key={index} />
+                            ))
+                        ))}
                     </div>
                 </div>
+                <div className="img-select">
+                    {details.map((sary, index) => (
+                        sary.imagelinks.map((link, idx) => (
+                            <div className="img-item" key={idx}>
+                                <Link data-id={index + 1}>
+                                    <img src={link} alt="sary" />
+                                </Link>
+                            </div>
+                        ))
+                    ))}
+                </div>
+            </div>
                 {details.map(detail => (
                     <div className="product-content" key={detail.idannonce}>
-                        <h2 className="product-title">{detail.modele}</h2>
+                        <h4 className="product-title">{detail.marque.marque} {detail.modele}</h4>
 
                         <div className="product-price">
-                            <p className="new-price">Prix: <span>${detail.prix}</span></p>
+                            <p className="new-price">Prix: <span>MGA {detail.prix}</span></p>
                         </div>
 
                         <div className="product-detail">
                             <h2>Informations générales: </h2>
                             <p>{detail.detail}</p>
                             <ul>
-                                <li>Couleur: <span>Black</span></li>
+                            <li>
+                                Catégorie : <span>{detail.categories.map(categorie => categorie.categorie).join(', ')}</span>
+                            </li>
                                 {detail.etat === 0 ? (
                                     <li>Disponibilité: <span>Mbola misy</span></li>
                                 ) : (
-                                        <li>Disponibilité: <span>Efa lafo</span></li>
-                                    )}
+                                    <li>Disponibilité: <span>Efa lafo</span></li>
+                                )}
                                 <li>Immatriculation: <span>{detail.matricule}</span></li>
                                 <li>Année de fabrication : <span>{detail.annee_fabrication}</span></li>
                             </ul>
