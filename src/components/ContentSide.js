@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import {request} from "../helper/axios_helper";
-import {Link, useParams} from "react-router-dom";
+import { request } from "../helper/axios_helper";
+import { Link, useParams } from "react-router-dom";
 
 function ContentSide() {
-    const [isActive, setIsActive] = useState(true);
     const user = JSON.parse(localStorage.getItem("user"));
-    const [utilisateurs,setUtilisateur] = useState([]);
-    const {id_selection} = useParams();
-
-    const ReloadPage = (url) => {
-        window.location.href = url;
-    };
+    const { id_selection } = useParams();
+    const [utilisateurs, setUtilisateur] = useState([]);
+    const [message1, setData1] = useState([]);
+    const [message2, setData2] = useState([]);
+    const [message, setMessage] = useState('');
 
     useEffect(() => {
         request("get", `/api/demo/users/${user.id}`)
@@ -20,12 +18,7 @@ function ContentSide() {
             .catch(error => {
                 console.error('Error fetching user:', error);
             });
-
-    },[]);
-
-
-    const [message1, setData1] = useState([]);
-    const [message2, setData2] = useState([]);
+    }, [user.id]);
 
     useEffect(() => {
         request("get", `/GetOwnMessage/${id_selection}/${user.id}`)
@@ -42,17 +35,19 @@ function ContentSide() {
             .catch(error => {
                 console.error('Error fetching annonces:', error);
             });
-    }, []);
+    }, [id_selection, user.id]);
 
-    const [message, setMessage] = useState('');
+    const ReloadPage = (url) => {
+        window.location.href = url;
+    };
 
     const sendMessage = async (e) => {
         e.preventDefault();
         try {
             const response = await request("post", "/addMessage", {
-                idEnvoyeur: user.id, //localstorage
-                text:message,
-                idDestinataire:id_selection, //le amin'ny href
+                idEnvoyeur: user.id,
+                text: message,
+                idDestinataire: id_selection,
             });
             if (response.status === 200) {
                 console.log(response.data);
@@ -65,7 +60,7 @@ function ContentSide() {
         }
     };
 
-    return(
+    return (
         <div class="chat-content">
             <div class="content-sidebar">
                 <div class="content-sidebar-title">Chats</div>
@@ -77,14 +72,14 @@ function ContentSide() {
                 <div class="content-messages">
                     <ul class="content-messages-list">
                         {utilisateurs.map((item) => (
-                        <li>
-                                <Link to={`/message/${item.id}`}  data-conversation="#conversation-1" onClick={() => ReloadPage(`/message/${item.id}`)}>
+                            <li key={item.id}>
+                                <Link to={`/message/${item.id}`} data-conversation="#conversation-1" onClick={() => ReloadPage(`/message/${item.id}`)}>
                                     <img class="content-message-image" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="" />
                                     <span class="content-message-info" >
-                                    <span class="content-message-name">{item.email}</span>
+                                        <span class="content-message-name">{item.email}</span>
                                     </span>
                                 </Link>
-                        </li>
+                            </li>
                         ))}
                     </ul>
                 </div>
@@ -107,42 +102,42 @@ function ContentSide() {
 
                 <>
                     <div class="conversation-main">
-                    <ul class="conversation-wrapper">
-                        {message1.map(message1 => (
-                            <li class="conversation-item me">
-                                <div class="conversation-item-side">
-                                    <img class="conversation-item-image" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="" />
-                                </div>
-                                <div class="conversation-item-content">
-                                    <div class="conversation-item-wrapper">
-                                        <div class="conversation-item-box">
-                                            <div class="conversation-item-text">
-                                                <p>{message1.text}</p>
+                        <ul class="conversation-wrapper">
+                            {message1.map(message1 => (
+                                <li key={message1.id} class="conversation-item me">
+                                    <div class="conversation-item-side">
+                                        <img class="conversation-item-image" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="" />
+                                    </div>
+                                    <div class="conversation-item-content">
+                                        <div class="conversation-item-wrapper">
+                                            <div class="conversation-item-box">
+                                                <div class="conversation-item-text">
+                                                    <p>{message1.text}</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </li>
-                        ))}
+                                </li>
+                            ))}
 
-                        {message2.map(message2 => (
-                            <li class="conversation-item">
-                                <div class="conversation-item-side">
-                                    <img class="conversation-item-image" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="" />
-                                </div>
-                                <div class="conversation-item-content">
-                                    <div class="conversation-item-wrapper">
-                                        <div class="conversation-item-box">
-                                            <div class="conversation-item-text">
-                                                <p>{message2.text}</p>
+                            {message2.map(message2 => (
+                                <li key={message2.id} class="conversation-item">
+                                    <div class="conversation-item-side">
+                                        <img class="conversation-item-image" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="" />
+                                    </div>
+                                    <div class="conversation-item-content">
+                                        <div class="conversation-item-wrapper">
+                                            <div class="conversation-item-box">
+                                                <div class="conversation-item-text">
+                                                    <p>{message2.text}</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
                     <div class="conversation-form">
                         <button type="button" class="conversation-form-button"><i class="ri-emotion-line"></i></button>
                         <div class="conversation-form-group">
