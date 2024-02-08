@@ -57,24 +57,10 @@ function Detailproduit() {
             <div className="test">
             <div className="product-imgs">
                 <div className="img-display">
-                    <div className="img-showcase">
-                        {details.map(sary => (
-                            sary.imagelinks.map((link, index) => (
-                                <img src={link} alt="sary" key={index} />
-                            ))
-                        ))}
-                    </div>
+                    
                 </div>
                 <div className="img-select">
-                    {details.map((sary, index) => (
-                        sary.imagelinks.map((link, idx) => (
-                            <div className="img-item" key={idx}>
-                                <Link data-id={index + 1}>
-                                    <img src={link} alt="sary" />
-                                </Link>
-                            </div>
-                        ))
-                    ))}
+                    
                 </div>
             </div>
                 {details.map(detail => (

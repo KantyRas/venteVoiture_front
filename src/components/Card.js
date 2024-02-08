@@ -1,5 +1,4 @@
 import "../assets/css/card.css";
-import voiture from "../assets/images/voiture.jpg";
 import React, { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { request } from "../helper/axios_helper";
@@ -11,7 +10,7 @@ function Card() {
     const user = JSON.parse(localStorage.getItem("user"));
 
     useEffect(() => {
-        request("get", "/liste_annonce")
+        request("get", "/validation/1")
             .then(response => {
                 setAnnonces(response.data);
             })
@@ -96,7 +95,7 @@ function Card() {
                             <span style={{color:"red"}}>Vendu</span>
                         )}
                         <div className="img-container">
-                            <img src={voiture} className="card-img-top" alt="Car" />
+                            <img src={annonce.imagelinks} className="card-img-top" alt="Car" />
                         </div>
                         <div className="card-body">
                             <h5 className="card-title"> {annonce.marque.marque} {annonce.modele}</h5>
