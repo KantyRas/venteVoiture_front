@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Navigate } from "react-router-dom"; // Importez Navigate à la place de Redirect
+import { Navigate } from "react-router-dom";
 import { request } from "../helper/axios_helper";
-
 import logoo from "../assets/images/logos/dark-logo.svg";
 
 function Login() {
