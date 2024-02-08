@@ -1,16 +1,19 @@
 import React, { useState } from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import logoo from "../assets/images/logos/dark-logo.svg";
 
 function Register() {
-    const [formData, setFormData] = useState({
+    const initialFormData = {
         firstname: "",
         lastname: "",
         email: "",
         password: ""
-    });
+    };
+
+    const [formData, setFormData] = useState(initialFormData);
     const [error, setError] = useState(null);
+    const [successMessage, setSuccessMessage] = useState("");
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -20,7 +23,13 @@ function Register() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post("https://voiture-backend-production.up.railway.app/api/auth/register", formData);
+            await axios.post("http://localhost:8080/api/auth/register", formData);
+            setFormData(initialFormData);
+            setError(null);
+            setSuccessMessage("Enregistrement effectué, veuillez vous connecter!");
+            setTimeout(() => {
+                setSuccessMessage("");
+            }, 3000);
         } catch (err) {
             setError(err.response.data.message);
         }
@@ -58,6 +67,7 @@ function Register() {
                                         </div>
                                         <button type="submit" className="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Sign Up</button>
                                         {error && <div className="alert alert-danger">{error}</div>}
+                                        {successMessage && <div className="alert alert-success">{successMessage}</div>}
                                         <div className="d-flex align-items-center justify-content-center">
                                             <Link className="text-primary fw-bold ms-2" to="/">Log in</Link>
                                         </div>
