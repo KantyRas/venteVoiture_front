@@ -7,6 +7,7 @@ import { request } from "../helper/axios_helper";
 function Card() {
     const [annonces, setAnnonces] = useState([]);
     const [favoris, setFavoris] = useState([]);
+    const [favorisCharges, setFavorisCharges] = useState(false); 
     const user = JSON.parse(localStorage.getItem("user"));
 
     useEffect(() => {
@@ -17,13 +18,14 @@ function Card() {
             .catch(error => {
                 console.error('Error fetching annonces:', error);
             });
+    }, []);
 
-    },[]);
     useEffect(() => {
-        if (user) {
+        if (user && !favorisCharges) { 
             fetchUserFavorites();
         }
-    }, [user]);
+    }, [user, favorisCharges]); 
+
     const fetchUserFavorites = async () => {
         try {
             const token = localStorage.getItem("token");
@@ -37,6 +39,7 @@ function Card() {
             });
             if (response.status === 200) {
                 setFavoris(response.data.map(favori => favori.idannonce));
+                setFavorisCharges(true); 
             } else {
                 console.error('Erreur lors de la récupération des favoris :', response.statusText);
             }
@@ -55,21 +58,20 @@ function Card() {
             if (!token || !user) {
                 return;
             }
-
+    
             const isFavorite = isAlreadyFavorite(idannonce);
-
+    
             const method = isFavorite ? 'delete' : 'post';
-
+    
             const endpoint = isFavorite ? `/favori/${idannonce}` : '/inserer_favori';
-
+    
             const response = await request(method, endpoint, { idannonce, idutilisateur: user.id }, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             });
-
+    
             if (response.status === 200) {
-                window.location.reload();
                 if (method === 'delete') {
                     setFavoris(prevFavoris => prevFavoris.filter(fav => fav !== idannonce));
                 } else {
@@ -82,6 +84,8 @@ function Card() {
             console.error('Erreur lors de la modification des favoris :', error);
         }
     };
+    
+    
 
 
 
