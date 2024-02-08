@@ -1,6 +1,6 @@
 import "../assets/css/card.css";
 import voiture from "../assets/images/voiture.jpg";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { request } from "../helper/axios_helper";
 
@@ -20,13 +20,7 @@ function Card() {
             });
     }, []);
 
-    useEffect(() => {
-        if (user && !favorisCharges) { 
-            fetchUserFavorites();
-        }
-    }, [user, favorisCharges]); 
-
-    const fetchUserFavorites = async () => {
+    const fetchUserFavorites = useCallback(async () => {
         try {
             const token = localStorage.getItem("token");
             if (!token || !user) {
@@ -46,7 +40,13 @@ function Card() {
         } catch (error) {
             console.error('Erreur lors de la récupération des favoris :', error);
         }
-    };
+    }, [user]);
+
+    useEffect(() => {
+        if (user && !favorisCharges) { 
+            fetchUserFavorites();
+        }
+    }, [user, favorisCharges, fetchUserFavorites]); 
 
     const isAlreadyFavorite = (idannonce) => {
         return favoris.includes(idannonce);
@@ -84,10 +84,6 @@ function Card() {
             console.error('Erreur lors de la modification des favoris :', error);
         }
     };
-    
-    
-
-
 
     return (
         <>
