@@ -37,8 +37,8 @@ function App() {
                 <Route path="/marques" element={<Acceuil contenu={Marque} />} />
                 <Route path="/validation" element={<Acceuil contenu={Validation} />} />
                 <Route path="/statistiques" element={<Acceuil contenu={Stat} />} />
-                <Route path="/message" element={<Chat />} />
-                <Route path="/message/:id_selection" element={<Chat />} />
+                <Route path="/messenger" element={<Chat />} />
+                <Route path="/messenger/:id_selection" element={<Chat />} />
 
             </Routes>
         </Router>

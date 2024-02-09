@@ -28,7 +28,7 @@ function Header() {
                             <Link className="nav-link active" aria-current="page" to="/historiques">Mon historique</Link>
                         </li>
                         <li className="nav-item">
-                        <Link className="nav-link active" aria-current="page" to="/message">Messages</Link>
+                        <Link className="nav-link active" aria-current="page" to="/messenger">Messages</Link>
                         </li>
                     </ul>
                    
