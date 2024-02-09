@@ -55,14 +55,19 @@ function Detailproduit() {
     return (
         <div className="test-wrapper">
             <div className="test">
-            <div className="product-imgs">
-                <div className="img-display">
-                    
+                <div className="product-imgs">
+                    <div className="img-select">
+                        {details.map((sary, index) => (
+                            sary.imagelinks.map((link, idx) => (
+                                <div className="img-item" key={idx}>
+                                    <Link data-id={index + 1}>
+                                        <img src={link} alt="sary" />
+                                    </Link>
+                                </div>
+                            ))
+                        ))}
+                    </div>
                 </div>
-                <div className="img-select">
-                    
-                </div>
-            </div>
                 {details.map(detail => (
                     <div className="product-content" key={detail.idannonce}>
                         <h4 className="product-title">{detail.marque.marque} {detail.modele}</h4>
@@ -95,23 +100,6 @@ function Detailproduit() {
                             <Link type="button" className="btn">Envoyez message</Link>
                         </div>
 
-                        <div className="social-links">
-                            <Link to="/">
-                                <i className="fab fa-facebook-f"></i>
-                            </Link>
-                            <Link to="/">
-                                <i className="fab fa-twitter"></i>
-                            </Link>
-                            <Link to="/">
-                                <i className="fab fa-instagram"></i>
-                            </Link>
-                            <Link to="/">
-                                <i className="fab fa-whatsapp"></i>
-                            </Link>
-                            <Link to="/">
-                                <i className="fab fa-pinterest"></i>
-                            </Link>
-                        </div>
                     </div>
                 ))}
             </div>

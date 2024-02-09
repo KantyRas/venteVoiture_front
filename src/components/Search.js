@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { request } from "../helper/axios_helper";
 import voiture from "../assets/images/voiture.jpg";
 import {Link} from "react-router-dom";
+import "../assets/css/card.css";
 
 function Search() {
     const [minPrix, setMinPrix] = useState('');

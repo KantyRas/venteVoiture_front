@@ -1,4 +1,3 @@
-import voiture from "../assets/images/voiture.jpg";
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import "../assets/css/card.css";
@@ -30,7 +29,7 @@ function Historique() {
                                 <span style={{ color: "red" }}>Vendu</span>
                             )}
                         <div className="img-container">
-                            <img src={voiture} className="card-img-top" alt="Car" />
+                            <img src={historique.imagelinks} className="card-img-top" alt="Car" />
                         </div>
                         <div className="card-body">
                             <h5 className="card-title">{historique.marque.marque} {historique.modele}</h5>

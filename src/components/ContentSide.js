@@ -73,7 +73,7 @@ function ContentSide() {
                     <ul class="content-messages-list">
                         {utilisateurs.map((item) => (
                             <li key={item.id}>
-                                <Link to={`/message/${item.id}`} data-conversation="#conversation-1" onClick={() => ReloadPage(`/message/${item.id}`)}>
+                                <Link data-conversation="#conversation-1" onClick={() => ReloadPage(`/message/${item.id}`)}>
                                     <img class="content-message-image" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="" />
                                     <span class="content-message-info" >
                                         <span class="content-message-name">{item.email}</span>

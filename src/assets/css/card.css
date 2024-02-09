@@ -1,106 +1,61 @@
-* {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
+/* card.css */
 
 .card {
-    border: none;
-    border-radius: 20px;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
-    transition: transform 0.3s ease-in-out;
-}
-
-.card:hover {
-    transform: scale(1.05);
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
 }
 
 .img-container {
+    height: 200px; /* Ajustez la hauteur de l'image container selon vos besoins */
     overflow: hidden;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
 }
 
 .card-img-top {
     width: 100%;
     height: auto;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    object-fit: cover;
 }
 
 .card-body {
-    padding: 15px; /* Ajustement de la marge intérieure */
+    padding: 10px;
 }
 
+.favorite-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    padding: 12px; /* Ajoutez du rembourrage pour agrandir le bouton */
+}
+
+.favorite-btn.active .heart-icon {
+    color: red;
+}
+
+.heart-icon::before {
+    content: '\2661'; /* Utilisez le code Unicode pour le symbole du cœur (❤️) */
+    font-size: 2.5em; /* Ajustez la taille de la police pour agrandir l'icône du cœur */
+}
+
+.favorite-btn.active .heart-icon::before {
+    content: '\2665'; /* Utilisez le code Unicode pour le symbole du cœur rempli (♥️) */
+    font-size: 2.5em; /* Ajustez la taille de la police pour agrandir l'icône du cœur rempli */
+}
+
+
 .btn-primary {
-    border-radius: 20px;
-    width: 100px; /* Ajustement de la largeur */
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
 .btn-primary:hover {
-    background-color: black;
-    border: none;
+    background-color: #0056b3;
 }
-
-h3, h5 {
-    color: rgb(0, 91, 228);
-}
-
-.filter {
-    padding: 20px;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    column-gap: 1%;
-    row-gap: 10px;
-}
-
-.filter .item {
-    background-color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.filter .item select,
-.filter .item input,
-.filter .item button {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    background-color: #f8f9fa;
-    border-left: 1px solid #ddd;
-    outline: none;
-}
-
-.filter .item label {
-    display: block;
-    width: 40%;
-    padding: 0 10px;
-}
-
-.filter .item.submit button {
-    width: 200px; /* Ajustement de la largeur */
-    border-radius: 30px;
-    background-color: black;
-    color: #fff;
-}
-/* CSS pour le bouton en forme de cœur */
-.favorite-btn {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-}
-
-/* Style du cœur vide */
-.favorite-btn .heart-icon::before {
-    content: "\2661";
-    font-size: 30px;
-}
-
-/* Style du cœur rempli */
-.favorite-btn.active .heart-icon::before {
-    content: "\2665";
-    color: red; /* Couleur du cœur rempli */
-}
-
