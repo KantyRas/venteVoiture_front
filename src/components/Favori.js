@@ -5,16 +5,17 @@ import {request} from "../helper/axios_helper";
 
 function Favori(){
     const [favoris,setFavori] = useState([]);
+    const user = JSON.parse(localStorage.getItem("user"));
 
     useEffect(() => {
-        request("get", "/all_favori")
+        request("get", `/liste_favori/${user.id}`)
             .then(response => {
                 setFavori(response.data);
             })
             .catch(error => {
                 console.error('Error fetching favori:', error);
             });
-    }, []);
+    }, [user.id]);
     
     return(
         <>

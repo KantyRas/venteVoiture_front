@@ -6,6 +6,36 @@ import { request } from "../helper/axios_helper";
 function Detailproduit() {
     const { idannonce } = useParams();
     const [details, setDetails] = useState([]);
+    const [validations, setValidation] = useState([]);
+    const [achatEffectue, setAchatEffectue] = useState(false);
+    const [messageAchat, setMessageAchat] = useState('');
+
+
+    useEffect(() => {
+        request("get", "/etat/0")
+            .then(response => {
+                setValidation(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching validation:', error);
+            });
+    }, []);
+    const handleValidation = async (idAnnonce) => {
+        try {
+            const response = await request("patch", `/${idAnnonce}/vendu?newEtat=1`, null);
+            if (response.status === 200) {
+                const updatedValidations = validations.filter(validation => validation.idannonce !== idAnnonce);
+                setValidation(updatedValidations);
+                setAchatEffectue(true);
+                setMessageAchat('L\'achat a été effectué avec succès!');
+            } else {
+                console.error('Erreur lors de la validation de l\'annonce: ', response.statusText);
+            }
+        } catch (error) {
+            console.error('Erreur lors de la validation de l\'annonce: ', error);
+        }
+    };
+
 
     useEffect(() => {
         request("get", `/detail_annonce/${idannonce}`)
@@ -15,7 +45,7 @@ function Detailproduit() {
             .catch(error => {
                 console.error('Error fetching annonces:', error);
             });
-    }, [idannonce]); // Ajoutez idannonce comme dépendance
+    }, [idannonce]);
 
     useEffect(() => {
         const imgs = document.querySelectorAll('.img-select a');
@@ -53,7 +83,14 @@ function Detailproduit() {
     }, []);
 
     return (
-        <div className="test-wrapper">
+        <>
+        {achatEffectue && (
+            <div className="achat-message">
+                <p>{messageAchat}</p>
+            </div>
+        )}
+
+    <div className="test-wrapper">
             <div className="test">
                 <div className="product-imgs">
                     <div className="img-select">
@@ -94,9 +131,9 @@ function Detailproduit() {
                         </div>
 
                         <div className="purchase-info">
-                            <Link type="button" className="btn">
+                            <button type="button" className="btn" onClick={() => handleValidation(detail.idannonce)}>
                                 Acheter
-                            </Link>
+                            </button>
                             <Link type="button" className="btn">Envoyez message</Link>
                         </div>
 
@@ -104,6 +141,7 @@ function Detailproduit() {
                 ))}
             </div>
         </div>
+        </>
     );
 }
 export default Detailproduit;

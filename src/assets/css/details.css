@@ -93,3 +93,31 @@
 .purchase-info .btn:last-child {
     margin-right: 0;
 }
+.achat-message {
+    background-color: #4caf50; /* Couleur de fond */
+    color: white; /* Couleur du texte */
+    padding: 10px 20px; /* Espacement intérieur */
+    margin-bottom: 20px; /* Marge en bas */
+    border-radius: 5px; /* Coins arrondis */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre */
+    transition: opacity 0.3s ease; /* Transition de l'opacité */
+}
+
+.achat-message p {
+    margin: 0; /* Annuler la marge par défaut du paragraphe */
+}
+
+/* Animation de fade-in */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Appliquer l'animation */
+.achat-message {
+    animation: fadeIn 0.3s ease;
+}
