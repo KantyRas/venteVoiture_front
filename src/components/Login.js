@@ -5,11 +5,12 @@ import { request } from "../helper/axios_helper";
 import logoo from "../assets/images/logos/dark-logo.svg";
 
 function Login() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("user1@gmail.com");
+    const [password, setPassword] = useState("0000");
     const [error, setError] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [roles,setRoles] = useState([]);
+    const [loginType, setLoginType] = useState("usera");
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -31,20 +32,17 @@ function Login() {
             setError(err.message);
         }
     };
-
-    /*const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await axios.post("http://localhost:8080/api/auth/authenticateDTO", { email, password });
-            console.log(response);
-            localStorage.setItem("token", response.data.token);
-            localStorage.setItem("user", JSON.stringify(response.data.user));
-            setRoles(response.data.user);
-            setIsLoggedIn(true);
-        } catch (err) { 
-            setError(err.message);
+    const handleLoginTypeChange = (type) => {
+        if (type === "usera") {
+            setEmail("user1@gmail.com");
+            setPassword("0000");
+        } else if (type === "adminina") {
+            setEmail("admin@gmail.com");
+            setPassword("0000");
         }
-    };*/
+        setLoginType(type);
+        console.log(loginType);
+    };
 
     if (isLoggedIn) {
         if (roles.role === "ADMIN") {
@@ -76,6 +74,10 @@ function Login() {
                                             <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
                                             <input type="password" className="form-control" id="exampleInputPassword1" value={password} onChange={(e) => setPassword(e.target.value)} />
                                         </div>
+                                        <Link className="btn btn-success w-100 py-8 fs-4 mb-4 rounded-2" onClick={() => handleLoginTypeChange(loginType === "adminina" ? "usera" : "adminina")}>
+                                            {loginType === "adminina" ? "FrontOffice" : "BackOffice"}
+                                        </Link>
+
                                         <button type="submit" className="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Sign In</button>
                                         {error && <div className="alert alert-danger">{error}</div>}
                                         <div className="d-flex align-items-center justify-content-center">

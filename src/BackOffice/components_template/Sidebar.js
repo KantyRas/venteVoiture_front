@@ -6,7 +6,7 @@ export default function Sidebar(){
         <aside className="left-sidebar">
             <div>
                 <div className="brand-logo d-flex align-items-center justify-content-between">
-                    <Link to="/" className="text-nowrap logo-img">
+                    <Link  className="text-nowrap logo-img">
                         <img src={darkLogo} width="180" alt="sary" />
                     </Link>
                     <div className="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
@@ -20,7 +20,7 @@ export default function Sidebar(){
                             <span className="hide-menu">Home</span>
                         </li>
                         <li className="sidebar-item">
-                            <Link className="sidebar-link" to="/" aria-expanded="false">
+                            <Link className="sidebar-link" to="/acceuil" aria-expanded="false">
                 <span>
                   <i className="ti ti-layout-dashboard"></i>
                 </span>

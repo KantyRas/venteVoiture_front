@@ -21,9 +21,8 @@ function App() {
     return (
         <Router>
             <Routes>
-                <Route path="/login/email=test@gmail.com/mdp=0000" element={<Login />} />
-
-                <Route path="/" element={<Navigate to="/login/email=test@gmail.com/mdp=0000" />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/" element={<Navigate to="/login" />} />
                 <Route path="/details/:idannonce" element={<Detail />} />
                 <Route path="/home" element={<Home />} />
                 <Route path="/home/:iduser/:idannonce" element={<Home />} />
