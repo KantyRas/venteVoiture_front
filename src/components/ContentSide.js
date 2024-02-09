@@ -11,7 +11,7 @@ function ContentSide() {
     const [message, setMessage] = useState('');
 
     useEffect(() => {
-        request("get", `/api/demo/users/${user.id}`)
+        request(`get`, `/api/demo/users/${user.id}`)
             .then(response => {
                 setUtilisateur(response.data);
             })
@@ -20,26 +20,29 @@ function ContentSide() {
             });
     }, [user.id]);
 
+
     useEffect(() => {
-        request("get", `/GetOwnMessage/${id_selection}/${user.id}`)
+        request(`get`, `/GetOwnMessage/${id_selection}/${user.id}`)
             .then(response => {
                 setData1(response.data);
             })
             .catch(error => {
-                console.error('Error fetching annonces:', error);
+                console.error('Error fetching message:', error);
             });
-        request("get", `/GetOwnMessage/${user.id}/${id_selection}`)
+
+    }, [id_selection, user.id]);
+
+    useEffect(() => {
+        request(`get`, `/GetOwnMessage/${user.id}/${id_selection}`)
             .then(response => {
                 setData2(response.data);
             })
             .catch(error => {
-                console.error('Error fetching annonces:', error);
+                console.error('Error fetching message:', error);
             });
     }, [id_selection, user.id]);
 
-    const ReloadPage = (url) => {
-        window.location.href = url;
-    };
+    
 
     const sendMessage = async (e) => {
         e.preventDefault();
@@ -73,7 +76,7 @@ function ContentSide() {
                     <ul class="content-messages-list">
                         {utilisateurs.map((item) => (
                             <li key={item.id}>
-                                <Link data-conversation="#conversation-1" onClick={() => ReloadPage(`/messenger/${item.id}`)}>
+                                <Link to={`/messenger/${item.id}`} data-conversation="#conversation-1" >
                                     <img class="content-message-image" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="" />
                                     <span class="content-message-info" >
                                         <span class="content-message-name">{item.email}</span>
