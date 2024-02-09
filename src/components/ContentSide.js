@@ -54,7 +54,7 @@ function ContentSide() {
             });
             if (response.status === 200) {
                 console.log(response.data);
-                window.location.reload();
+                //window.location.reload();
             } else {
                 console.error('Erreur lors de l\'envoi du message', response.statusText);
             }
